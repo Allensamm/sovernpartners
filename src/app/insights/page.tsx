@@ -44,14 +44,29 @@ export default function InsightsPage() {
   const [newsLoading, setNewsLoading] = useState(true);
 
   useEffect(() => {
-    const query = NEWS_QUERIES[Math.floor(Math.random() * NEWS_QUERIES.length)];
-    fetch(`/api/news?q=${encodeURIComponent(query)}`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.articles) setNews(data.articles.slice(0, 6));
-      })
-      .catch(() => {})
-      .finally(() => setNewsLoading(false));
+    let timer: ReturnType<typeof setTimeout>;
+
+    const fetchNews = () => {
+      const query = NEWS_QUERIES[Math.floor(Math.random() * NEWS_QUERIES.length)];
+      fetch(`/api/news?q=${encodeURIComponent(query)}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const items = data.articles?.slice(0, 6) ?? [];
+          if (items.length > 0) {
+            setNews(items);
+            setNewsLoading(false);
+          } else {
+            // No articles yet — retry in 5 seconds
+            timer = setTimeout(fetchNews, 5000);
+          }
+        })
+        .catch(() => {
+          timer = setTimeout(fetchNews, 5000);
+        });
+    };
+
+    fetchNews();
+    return () => clearTimeout(timer);
   }, []);
 
   const filtered = inHouseArticles.filter(
@@ -185,11 +200,8 @@ export default function InsightsPage() {
               <Loader2 size={28} className="text-[#C9A84C] animate-spin" />
             </div>
           ) : news.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="font-['DM_Sans'] text-[#6B6B6B]">
-                Add a <span className="font-medium text-[#0A1628]">NEWSAPI_KEY</span> to <code className="bg-[#F5F2ED] px-1.5 py-0.5 rounded text-sm">.env.local</code> to load live industry articles.
-              </p>
-              <p className="font-['DM_Sans'] text-sm text-[#9BA8B8] mt-2">Get a free key at newsapi.org</p>
+            <div className="flex items-center justify-center py-24">
+              <Loader2 size={28} className="text-[#C9A84C] animate-spin" />
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
