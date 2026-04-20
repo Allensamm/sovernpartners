@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Headphones, FileText, Video, BookOpen } from "lucide-react";
+import { ArrowRight, Headphones, FileText, Video, BookOpen, ExternalLink, Loader2 } from "lucide-react";
+import { articles as inHouseArticles, getArticleHref } from "@/lib/articles";
 
 const topics = ["All","Boards & Governance","CEO & C-Suite","Human Resources","Cybersecurity","Leadership Development","Digital & AI","Culture & Organization","Financial Services","Private Equity","On-Demand Talent"];
 
@@ -13,17 +14,6 @@ const contentTypes = [
   { label: "Webinars", icon: Video },
 ];
 
-const articles = [
-  { type: "Report", tag: "CEO & C-Suite", title: "The CEO Agenda 2025: Leading Through Uncertainty", excerpt: "Our annual survey of 800+ CEOs reveals the five forces reshaping executive priorities — from AI disruption to geopolitical volatility.", date: "March 2025", readTime: "12 min read" },
-  { type: "Article", tag: "Boards & Governance", title: "Why Board Diversity Still Falls Short — and What to Do About It", excerpt: "Despite years of progress, boards remain homogeneous at the top. We examine the structural barriers — and how leading firms are breaking through them.", date: "February 2025", readTime: "8 min read" },
-  { type: "Podcast", tag: "Human Resources", title: "The CHRO Revolution: HR as the New Strategic Heartbeat", excerpt: "A conversation with three Chief People Officers on how the role has fundamentally shifted — and what it means for talent strategy.", date: "January 2025", readTime: "42 min" },
-  { type: "Report", tag: "Digital & AI", title: "The AI-Ready Leader: A New Profile for the Digital Age", excerpt: "Our research across 600 senior leaders identifies the five cognitive traits that distinguish AI-ready executives from those who will be left behind.", date: "December 2024", readTime: "18 min read" },
-  { type: "Article", tag: "Culture & Organization", title: "Culture Eats Strategy — But Only If You Let It", excerpt: "The real barrier to transformation isn't strategy. It's the invisible cultural forces that resist change. Here's how exceptional leaders address them.", date: "November 2024", readTime: "6 min read" },
-  { type: "Webinar", tag: "Private Equity", title: "The 100-Day Blueprint: PE-Backed CEO Success", excerpt: "Our senior partners share the leadership playbook that helps PE-backed CEOs navigate the first 100 days — and set the stage for value creation.", date: "October 2024", readTime: "60 min" },
-  { type: "Article", tag: "Leadership Development", title: "The Hidden Cost of Underdeveloping Your Top 50", excerpt: "Most organizations invest heavily in frontline training but underinvest in the 50 leaders who drive 80% of organizational performance.", date: "September 2024", readTime: "7 min read" },
-  { type: "Report", tag: "On-Demand Talent", title: "The Rise of the Interim Executive: A New Leadership Model", excerpt: "Our comprehensive study of 400+ interim engagements reveals why this talent model is growing — and how to make it work for your organization.", date: "August 2024", readTime: "14 min read" },
-];
-
 const typeColors: Record<string, string> = {
   Report: "bg-[#0A1628] text-white",
   Article: "bg-[#F5F2ED] text-[#0A1628]",
@@ -31,14 +21,52 @@ const typeColors: Record<string, string> = {
   Webinar: "bg-[#E8E4DE] text-[#0A1628]",
 };
 
+interface NewsItem {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string | null;
+  publishedAt: string;
+  source: { name: string };
+}
+
+const NEWS_QUERIES = [
+  "executive search leadership",
+  "headhunter CEO hiring",
+  "CHRO talent strategy",
+  "board governance diversity",
+];
+
 export default function InsightsPage() {
   const [activeTopic, setActiveTopic] = useState("All");
   const [activeType, setActiveType] = useState("All");
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [newsLoading, setNewsLoading] = useState(true);
 
-  const filtered = articles.filter(a =>
-    (activeTopic === "All" || a.tag === activeTopic) &&
-    (activeType === "All" || a.type === activeType)
+  useEffect(() => {
+    const query = NEWS_QUERIES[Math.floor(Math.random() * NEWS_QUERIES.length)];
+    fetch(`/api/news?q=${encodeURIComponent(query)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.articles) setNews(data.articles.slice(0, 6));
+      })
+      .catch(() => {})
+      .finally(() => setNewsLoading(false));
+  }, []);
+
+  const filtered = inHouseArticles.filter(
+    (a) =>
+      (activeTopic === "All" || a.tag === activeTopic) &&
+      (activeType === "All" || a.type === activeType)
   );
+
+  const formatDate = (iso: string) => {
+    try {
+      return new Date(iso).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+    } catch {
+      return "";
+    }
+  };
 
   return (
     <div>
@@ -56,6 +84,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
+      {/* Filters */}
       <section className="bg-white border-b border-[#E8E4DE] py-6 sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex flex-wrap gap-2 mb-4">
@@ -91,41 +120,110 @@ export default function InsightsPage() {
         </div>
       </section>
 
+      {/* Sovern Perspectives — in-house articles */}
       <section className="bg-[#F5F2ED] py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <p className="font-['Jost'] uppercase tracking-[0.18em] text-[#C9A84C] text-xs font-medium mb-3">Sovern Perspectives</p>
+          <h2 className="font-['Cormorant_Garamond'] text-4xl font-light text-[#0A1628] mb-10">Our research & thinking</h2>
+
           {filtered.length === 0 ? (
             <div className="text-center py-24">
               <p className="font-['Cormorant_Garamond'] text-3xl text-[#6B6B6B]">No results for this filter combination.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filtered.map((article) => (
-                <Link
-                  key={article.title}
-                  href="/insights"
-                  className="group bg-white border border-[#E8E4DE] hover:border-[#C9A84C] hover:shadow-lg transition-all duration-300 rounded-sm overflow-hidden flex flex-col"
+              {filtered.map((article) => {
+                const href = getArticleHref(article);
+                const isExternal = article.type === "Webinar";
+                return (
+                  <Link
+                    key={article.title}
+                    href={href}
+                    className="group bg-white border border-[#E8E4DE] hover:border-[#C9A84C] hover:shadow-lg transition-all duration-300 rounded-sm overflow-hidden flex flex-col"
+                  >
+                    <div className="h-1 bg-[#C9A84C]" />
+                    <div className="p-8 flex flex-col flex-1">
+                      <div className="flex items-center justify-between mb-5">
+                        <span className={`font-['Jost'] uppercase tracking-widest text-xs font-medium px-2.5 py-1 rounded-sm ${typeColors[article.type]}`}>
+                          {article.type}
+                        </span>
+                        <span className="font-['DM_Sans'] text-xs text-[#6B6B6B]">{article.readTime}</span>
+                      </div>
+                      <span className="font-['Jost'] uppercase tracking-widest text-[#C9A84C] text-[10px] mb-3">{article.tag}</span>
+                      <h3 className="font-['Cormorant_Garamond'] text-xl font-semibold text-[#0A1628] leading-snug mb-4 group-hover:text-[#C9A84C] transition-colors flex-1">
+                        {article.title}
+                      </h3>
+                      <p className="font-['DM_Sans'] text-sm text-[#6B6B6B] leading-relaxed mb-6">{article.excerpt}</p>
+                      <div className="flex items-center justify-between pt-4 border-t border-[#F0EDE8]">
+                        <span className="font-['DM_Sans'] text-xs text-[#6B6B6B]">{article.date}</span>
+                        <span className="font-['Jost'] uppercase tracking-widest text-xs text-[#0A1628] group-hover:text-[#C9A84C] transition-colors flex items-center gap-1">
+                          {article.type === "Podcast" ? "Listen" : article.type === "Webinar" ? "Watch" : "Read"} {isExternal ? <ExternalLink size={11} /> : <ArrowRight size={11} />}
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Live Industry News */}
+      <section className="bg-white py-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="font-['Jost'] uppercase tracking-[0.18em] text-[#C9A84C] text-xs font-medium mb-3">From the Industry</p>
+              <h2 className="font-['Cormorant_Garamond'] text-4xl font-light text-[#0A1628]">Latest in leadership & executive search</h2>
+            </div>
+            <span className="font-['DM_Sans'] text-xs text-[#6B6B6B] hidden md:block">Updated daily · Sourced from global publications</span>
+          </div>
+
+          {newsLoading ? (
+            <div className="flex items-center justify-center py-24">
+              <Loader2 size={28} className="text-[#C9A84C] animate-spin" />
+            </div>
+          ) : news.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="font-['DM_Sans'] text-[#6B6B6B]">
+                Add a <span className="font-medium text-[#0A1628]">NEWSAPI_KEY</span> to <code className="bg-[#F5F2ED] px-1.5 py-0.5 rounded text-sm">.env.local</code> to load live industry articles.
+              </p>
+              <p className="font-['DM_Sans'] text-sm text-[#9BA8B8] mt-2">Get a free key at newsapi.org</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {news.map((item, i) => (
+                <a
+                  key={i}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-[#F5F2ED] border border-[#E8E4DE] hover:border-[#C9A84C] hover:shadow-lg transition-all duration-300 rounded-sm overflow-hidden flex flex-col"
                 >
-                  <div className="h-1 bg-[#C9A84C]" />
-                  <div className="p-8 flex flex-col flex-1">
-                    <div className="flex items-center justify-between mb-5">
-                      <span className={`font-['Jost'] uppercase tracking-widest text-xs font-medium px-2.5 py-1 rounded-sm ${typeColors[article.type]}`}>
-                        {article.type}
-                      </span>
-                      <span className="font-['DM_Sans'] text-xs text-[#6B6B6B]">{article.readTime}</span>
+                  {item.urlToImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={item.urlToImage}
+                      alt={item.title}
+                      className="w-full h-44 object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                  )}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-['Jost'] uppercase tracking-widest text-[#C9A84C] text-[10px]">{item.source.name}</span>
+                      <ExternalLink size={11} className="text-[#9BA8B8] group-hover:text-[#C9A84C] transition-colors" />
                     </div>
-                    <span className="font-['Jost'] uppercase tracking-widest text-[#C9A84C] text-[10px] mb-3">{article.tag}</span>
-                    <h3 className="font-['Cormorant_Garamond'] text-xl font-semibold text-[#0A1628] leading-snug mb-4 group-hover:text-[#C9A84C] transition-colors flex-1">
-                      {article.title}
+                    <h3 className="font-['Cormorant_Garamond'] text-lg font-semibold text-[#0A1628] group-hover:text-[#C9A84C] transition-colors leading-snug mb-3 flex-1 line-clamp-3">
+                      {item.title}
                     </h3>
-                    <p className="font-['DM_Sans'] text-sm text-[#6B6B6B] leading-relaxed mb-6">{article.excerpt}</p>
-                    <div className="flex items-center justify-between pt-4 border-t border-[#F0EDE8]">
-                      <span className="font-['DM_Sans'] text-xs text-[#6B6B6B]">{article.date}</span>
-                      <span className="font-['Jost'] uppercase tracking-widest text-xs text-[#0A1628] group-hover:text-[#C9A84C] transition-colors flex items-center gap-1">
-                        {article.type === "Podcast" ? "Listen" : article.type === "Webinar" ? "Watch" : "Read"} <ArrowRight size={11} />
-                      </span>
-                    </div>
+                    {item.description && (
+                      <p className="font-['DM_Sans'] text-sm text-[#6B6B6B] leading-relaxed line-clamp-2 mb-4">{item.description}</p>
+                    )}
+                    <p className="font-['DM_Sans'] text-xs text-[#9BA8B8]">{formatDate(item.publishedAt)}</p>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
           )}
