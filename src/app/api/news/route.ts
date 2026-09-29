@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   try {
     const res = await fetch(
       `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=9&apiKey=${apiKey}`,
-      { next: { revalidate: 3600 } } // cache for 1 hour
+      { next: { revalidate: 3600 } }, // cache for 1 hour
     );
 
     if (!res.ok) {
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
         a.title !== "[Removed]" &&
         a.description &&
         a.description !== "[Removed]" &&
-        a.url
+        a.url,
     );
 
     return NextResponse.json({ articles });

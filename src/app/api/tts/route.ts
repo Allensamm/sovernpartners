@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       return NextResponse.json(
         { error: "GOOGLE_TTS_API_KEY is not configured" },
-        { status: 503 }
+        { status: 503 },
       );
     }
 
@@ -35,13 +35,16 @@ export async function POST(req: NextRequest) {
             effectsProfileId: ["headphone-class-device"],
           },
         }),
-      }
+      },
     );
 
     if (!res.ok) {
       const errText = await res.text();
       console.error("Google TTS API error:", errText);
-      return NextResponse.json({ error: "TTS generation failed" }, { status: 500 });
+      return NextResponse.json(
+        { error: "TTS generation failed" },
+        { status: 500 },
+      );
     }
 
     const data = await res.json();
@@ -56,6 +59,9 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("TTS route error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

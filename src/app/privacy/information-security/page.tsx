@@ -1,30 +1,39 @@
-export default function InfoSecurityPage() {
+import PolicyPage from "@/components/PolicyPage";
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata(
+  "Information security",
+  "How to share information thoughtfully, recognise the limits of the website forms and report a security concern.",
+  "/privacy/information-security",
+);
+export default function Security() {
   return (
-    <div>
-      <section className="bg-[#0A1628] pt-40 pb-20 relative overflow-hidden">
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-[#C9A84C] to-transparent opacity-60" />
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="font-['Jost'] uppercase tracking-[0.2em] text-[#C9A84C] text-xs font-medium mb-4">Legal</p>
-          <h1 className="font-['Cormorant_Garamond'] text-5xl font-light text-white">Information Security</h1>
-        </div>
-      </section>
-      <section className="bg-white py-20">
-        <div className="max-w-4xl mx-auto px-6 font-['DM_Sans'] text-[#6B6B6B] leading-relaxed space-y-8">
-          <p className="font-['Cormorant_Garamond'] text-2xl text-[#0A1628]">Protecting your data is fundamental to the trust our clients place in us.</p>
-          {[
-            { title: "Security Standards", body: "Sovern Partners maintains information security practices aligned with ISO 27001 standards. We conduct regular third-party security audits and penetration testing of our systems." },
-            { title: "Data Encryption", body: "All candidate and client data is encrypted at rest (AES-256) and in transit (TLS 1.3). Access to sensitive data is restricted on a need-to-know basis with multi-factor authentication required for all staff." },
-            { title: "Incident Response", body: "In the event of a data breach that affects your personal data, we will notify you and relevant authorities within 72 hours as required by applicable data protection law." },
-            { title: "Vendor Management", body: "All third-party vendors who access personal data are subject to rigorous security assessments and contractual data protection obligations." },
-          ].map(s => (
-            <div key={s.title}>
-              <h2 className="font-['Cormorant_Garamond'] text-2xl font-semibold text-[#0A1628] mb-2">{s.title}</h2>
-              <p>{s.body}</p>
-            </div>
-          ))}
-          <p>To report a security concern, contact: <a href="mailto:security@sovernpartners.com" className="text-[#C9A84C] hover:underline">security@sovernpartners.com</a></p>
-        </div>
-      </section>
-    </div>
+    <PolicyPage
+      eyebrow="Information security"
+      title="Share with care."
+      accent="Ask when in doubt."
+      intro="Practical information about using the website and raising concerns about sensitive information."
+      sections={[
+        {
+          title: "The current website",
+          body: "The site provides public information and forms that prepare an email in your own email app. It does not provide a candidate login, password storage, payment collection or document-upload service.",
+        },
+        {
+          title: "Sending sensitive information",
+          body: "Keep an initial enquiry high level. Do not include passwords, financial account details, identity documents, health information or confidential employer documents. Discuss an appropriate way to share any necessary sensitive material before sending it.",
+        },
+        {
+          title: "Check who you are speaking with",
+          body: "If a message claims to represent Sovern Partners and you are unsure about it, contact the address published on the contact page using a fresh email. Do not rely only on links or contact details included in the message you are checking.",
+        },
+        {
+          title: "Reporting a possible issue",
+          body: "Email a concise description of the concern, the affected page and when you noticed it. Avoid including other people’s personal information or sensitive technical material in an initial report. Ask for a suitable way to share further details.",
+        },
+        {
+          title: "Security claims",
+          body: "No security certification or independent audit is claimed by this website. Any requirements for a formal engagement should be discussed and documented as part of that engagement.",
+        },
+      ]}
+    />
   );
 }
