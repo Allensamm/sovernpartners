@@ -55,7 +55,7 @@ try {
   await writeFile(
     path.join(output, ".openai/hosting.json"),
     JSON.stringify(
-      { project_id: hosting.project_id, static: { directory: "client" } },
+      { project_id: hosting.project_id, static: "dist/client" },
       null,
       2,
     ),
