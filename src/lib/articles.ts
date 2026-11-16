@@ -33,7 +33,7 @@ export const articles: Article[] = [
     excerpt:
       "Finding clarity when the path ahead isn’t obvious. A practical way to turn uncertainty into a more useful leadership conversation.",
     readTime: "3 min read",
-    image: "/images/workspace.jpg",
+    image: "/images/leadership-workshop.jpg",
     color: "peach",
     cover: "The next good question.",
     sections: [
@@ -84,7 +84,7 @@ export const articles: Article[] = [
     excerpt:
       "How a clearer brief, a broader search and consistent questions can make a leadership shortlist more thoughtful.",
     readTime: "3 min read",
-    image: "/images/team-collaboration.jpg",
+    image: "/images/leadership-boardroom.jpg",
     color: "lime",
     cover: "Different views. More possibility.",
     sections: [
@@ -141,7 +141,7 @@ export const articles: Article[] = [
     excerpt:
       "Past achievements are useful. Understanding how a person learns, adapts and brings others along is just as important in a changing business.",
     readTime: "3 min read",
-    image: "/images/people-at-work.jpg",
+    image: "/images/leadership-conversation.jpg",
     color: "lavender",
     cover: "Ready for what comes next.",
     sections: [
@@ -188,7 +188,7 @@ export const articles: Article[] = [
     excerpt:
       "Culture takes shape in the decisions, conversations and habits people experience. Start there if you want it to change.",
     readTime: "3 min read",
-    image: "/images/people-at-work.jpg",
+    image: "/images/leadership-conversation.jpg",
     color: "lavender",
     cover: "Culture is what we do.",
     sections: [
@@ -239,7 +239,7 @@ export const articles: Article[] = [
     excerpt:
       "A development plan becomes useful when it connects to real decisions, working relationships and opportunities to practise.",
     readTime: "3 min read",
-    image: "/images/team-collaboration.jpg",
+    image: "/images/leadership-boardroom.jpg",
     color: "peach",
     cover: "Potential needs practice.",
     sections: [
@@ -287,7 +287,7 @@ export const articles: Article[] = [
     excerpt:
       "Before you bring in interim experience, agree the mandate, decision authority and handover that will make the assignment useful.",
     readTime: "3 min read",
-    image: "/images/workspace.jpg",
+    image: "/images/leadership-workshop.jpg",
     color: "lime",
     cover: "A clear brief. A useful impact.",
     sections: [

@@ -16,7 +16,7 @@ export default function Careers() {
         accent="good on you."
         intro="A new challenge. A change of pace. Work that means more. Whatever your next chapter looks like, it starts with a conversation."
         color="lavender"
-        image="/images/people-at-work.jpg"
+        image="/images/leadership-conversation.jpg"
       />
       <section className="section container">
         <div className="section-heading">

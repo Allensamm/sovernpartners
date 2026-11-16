@@ -24,7 +24,7 @@ export const serviceContent: Record<string, EditorialContent> = {
     intro:
       "An important hire deserves a thoughtful search. We connect you with leaders who understand your ambition and have the ability to move it forward.",
     color: "peach",
-    image: "/images/team-collaboration.jpg",
+    image: "/images/leadership-boardroom.jpg",
     introTitle: "Start with the challenge. Find the person.",
     paragraphs: [
       "The strongest search begins well before a shortlist. We explore your business, the team around the role, and what success should look like. Together, we turn that understanding into a clear, useful brief.",
@@ -88,7 +88,7 @@ export const serviceContent: Record<string, EditorialContent> = {
     intro:
       "Help the people leading your business become more self-aware, more connected and more effective in the moments that matter.",
     color: "lavender",
-    image: "/images/people-at-work.jpg",
+    image: "/images/leadership-conversation.jpg",
     introTitle: "Development with a real-world purpose.",
     paragraphs: [
       "Leadership development works best when it is connected to the work. We start with the decisions, relationships and challenges your leaders are navigating, then shape an approach around them.",
@@ -147,7 +147,7 @@ export const serviceContent: Record<string, EditorialContent> = {
     intro:
       "When a business challenge can’t wait, experienced interim and project leaders can help you keep moving with purpose.",
     color: "lime",
-    image: "/images/workspace.jpg",
+    image: "/images/leadership-workshop.jpg",
     introTitle: "Flexible leadership. A clear mandate.",
     paragraphs: [
       "Sometimes the need is immediate. A key leader is leaving, a project requires specialist experience, or the business is entering unfamiliar territory. A permanent appointment may not be the right first step.",
@@ -206,7 +206,7 @@ export const serviceContent: Record<string, EditorialContent> = {
     intro:
       "Connect your business ambition with the people, leadership and ways of working needed to make change happen.",
     color: "peach",
-    image: "/images/workspace.jpg",
+    image: "/images/leadership-workshop.jpg",
     introTitle: "Make the human side of change count.",
     paragraphs: [
       "A new strategy changes little until people can act on it. We help leaders examine the talent, team structures and behaviours needed to turn a business direction into day-to-day progress.",
@@ -260,7 +260,7 @@ export const serviceContent: Record<string, EditorialContent> = {
     intro:
       "Build the structures, shared expectations and everyday behaviours that help your people and your business thrive together.",
     color: "lavender",
-    image: "/images/people-at-work.jpg",
+    image: "/images/leadership-conversation.jpg",
     introTitle: "Culture lives in what people experience.",
     paragraphs: [
       "An organisation’s culture shows up in meetings, decisions, recognition and the way difficult conversations happen. We help you explore the gap between the culture you describe and the one people experience.",
@@ -317,7 +317,7 @@ export const aboutContent: Record<string, EditorialContent> = {
     intro:
       "Sovern Partners brings a personal, thoughtful approach to the decisions that shape organisations and careers.",
     color: "peach",
-    image: "/images/people-at-work.jpg",
+    image: "/images/leadership-conversation.jpg",
     introTitle: "A partnership begins with paying attention.",
     paragraphs: [
       "The idea behind Sovern is straightforward: important people decisions deserve time, curiosity and care. An effective search is a conversation about where a business is going and who can help it get there.",
@@ -386,7 +386,7 @@ export const aboutContent: Record<string, EditorialContent> = {
     intro:
       "A broader view of talent starts with being curious about who we might be overlooking.",
     color: "lavender",
-    image: "/images/team-collaboration.jpg",
+    image: "/images/leadership-boardroom.jpg",
     introTitle: "Belonging starts long before the first day.",
     paragraphs: [
       "The language of a role, the places you look and the questions you ask all shape who gets considered. We encourage a thoughtful approach at every stage, with requirements that reflect the work rather than assumptions about a typical candidate.",
@@ -426,7 +426,7 @@ export const aboutContent: Record<string, EditorialContent> = {
     intro:
       "The choices organisations make today shape the opportunities people have tomorrow.",
     color: "lime",
-    image: "/images/workspace.jpg",
+    image: "/images/leadership-workshop.jpg",
     introTitle: "Progress includes how we get there.",
     paragraphs: [
       "We see responsible business as a set of everyday choices. That includes how we use resources, how we work with people and how we encourage leaders to consider the longer-term consequences of their decisions.",

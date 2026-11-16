@@ -6,6 +6,7 @@ export const metadata = pageMetadata(
 );
 import Link from "next/link";
 import Image from "next/image";
+import ClientCarousel from "@/components/ClientCarousel";
 import {
   ArrowUpRight,
   ArrowDown,
@@ -73,7 +74,7 @@ export default function HomePage() {
         <div className="hero-art">
           <div className="hero-photo">
             <Image
-              src="/images/team-collaboration.jpg"
+              src="/images/leadership-boardroom.jpg"
               alt="Colleagues sharing ideas around a table"
               fill
               priority
@@ -195,7 +196,7 @@ export default function HomePage() {
       <section className="section container split-section">
         <div className="editorial-photo">
           <Image
-            src="/images/people-at-work.jpg"
+            src="/images/leadership-conversation.jpg"
             alt="People connecting and collaborating in a bright workspace"
             fill
             sizes="(max-width: 760px) 90vw, 45vw"
@@ -239,6 +240,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+      <ClientCarousel />
       <section className="candidate-band">
         <div className="container">
           <Asterisk className="band-star" strokeWidth={1} />
@@ -281,7 +283,13 @@ export default function HomePage() {
         </div>
         <div className="insight-grid">
           <Link className="insight-card" href="/insights/ceo-agenda-2025">
-            <div className="insight-art peach">
+            <div className="insight-art photo-card">
+              <Image
+                src="/images/leadership-conversation.jpg"
+                alt="Two senior leaders sharing a thoughtful conversation"
+                fill
+                sizes="(max-width: 760px) 90vw, 30vw"
+              />
               <span>
                 The next
                 <br />
@@ -299,7 +307,7 @@ export default function HomePage() {
           <Link className="insight-card" href="/insights/board-diversity">
             <div className="insight-image">
               <Image
-                src="/images/team-collaboration.jpg"
+                src="/images/leadership-boardroom.jpg"
                 alt="Different perspectives coming together in a team discussion"
                 fill
                 sizes="(max-width: 760px) 90vw, 30vw"
@@ -313,7 +321,13 @@ export default function HomePage() {
             </span>
           </Link>
           <Link className="insight-card" href="/insights/culture-eats-strategy">
-            <div className="insight-art lavender">
+            <div className="insight-art photo-card">
+              <Image
+                src="/images/leadership-workshop.jpg"
+                alt="A diverse team working through a strategic change"
+                fill
+                sizes="(max-width: 760px) 90vw, 30vw"
+              />
               <span>
                 Culture is
                 <br />

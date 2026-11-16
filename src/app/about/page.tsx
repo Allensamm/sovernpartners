@@ -17,7 +17,7 @@ export default function About() {
         accent="Always have been."
         intro="We’re here for the people making things happen. The ambitious businesses. The thoughtful leaders. The teams ready for their next chapter."
         color="peach"
-        image="/images/people-at-work.jpg"
+        image="/images/leadership-conversation.jpg"
       />
       <section className="section container intro-section">
         <h2>
@@ -47,7 +47,7 @@ export default function About() {
       </section>
       <div className="container full-photo">
         <Image
-          src="/images/team-collaboration.jpg"
+          src="/images/leadership-boardroom.jpg"
           alt="A collaborative conversation between colleagues"
           fill
           sizes="90vw"

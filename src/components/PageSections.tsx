@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Asterisk, Plus } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import type { EditorialContent, FAQ, Feature } from "@/lib/site-content";
 export function PageHero({
   eyebrow,
@@ -9,6 +9,7 @@ export function PageHero({
   intro,
   color = "peach",
   image,
+  imageAlt,
 }: {
   eyebrow: string;
   title: string;
@@ -16,10 +17,19 @@ export function PageHero({
   intro: string;
   color?: string;
   image?: string;
+  imageAlt?: string;
 }) {
+  const heroImage = image || "/images/leadership-boardroom.jpg";
+  const heroImageAlt = imageAlt ||
+    (heroImage.includes("conversation")
+      ? "Two senior leaders in a focused conversation"
+      : heroImage.includes("workshop")
+        ? "Colleagues discussing a strategic plan together"
+        : "Senior leaders sharing a considered discussion in a boardroom");
+
   return (
     <section className={`page-hero ${color}`}>
-      <div className={`container ${image ? "with-image" : ""}`}>
+      <div className="container with-image">
         <div>
           <p className="eyebrow">{eyebrow}</p>
           <h1>
@@ -29,23 +39,15 @@ export function PageHero({
           </h1>
           <p className="page-intro">{intro}</p>
         </div>
-        {image ? (
-          <div className="page-hero-image">
-            <Image
-              src={image}
-              alt="People and places that inspire better work"
-              fill
-              priority
-              sizes="(max-width:760px) 90vw, 35vw"
-            />
-          </div>
-        ) : (
-          <Asterisk
-            className="page-hero-star"
-            strokeWidth={0.8}
-            aria-hidden="true"
+        <div className="page-hero-image">
+          <Image
+            src={heroImage}
+            alt={heroImageAlt}
+            fill
+            priority
+            sizes="(max-width:760px) 90vw, 42vw"
           />
-        )}
+        </div>
       </div>
     </section>
   );

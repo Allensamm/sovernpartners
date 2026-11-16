@@ -16,7 +16,7 @@ export default function Offices() {
         accent="go beyond a postcode."
         intro="Tell us where your business operates and where your ambitions are taking you. We’ll discuss the right way to work together."
         color="peach"
-        image="/images/workspace.jpg"
+        image="/images/leadership-workshop.jpg"
       />
       <section className="section container intro-section">
         <h2>
