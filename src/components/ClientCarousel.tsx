@@ -25,6 +25,31 @@ const clients = [
     logo: "/clients/arcadis.svg",
     className: "client-logo-arcadis",
   },
+  {
+    name: "DQS Group",
+    logo: "/clients/dqs.png",
+    className: "client-logo-dqs",
+  },
+  {
+    name: "Schlafender Hase GmbH",
+    logo: "/clients/schlafender-hase.svg",
+    className: "client-logo-schlafender-hase",
+  },
+  {
+    name: "CHEPLAPHARM Arzneimittel GmbH",
+    logo: "/clients/cheplapharm.svg",
+    className: "client-logo-cheplapharm",
+  },
+  {
+    name: "DAW SE",
+    logo: "/clients/daw.png",
+    className: "client-logo-daw",
+  },
+  {
+    name: "Hornetsecurity",
+    logo: "/clients/hornetsecurity.png",
+    className: "client-logo-hornetsecurity",
+  },
 ];
 
 export default function ClientCarousel() {
@@ -79,7 +104,10 @@ export default function ClientCarousel() {
           tabIndex={0}
         >
           {clients.map((client) => (
-            <div className="client-card" key={client.name}>
+            <div
+              className={`client-card ${client.className === "client-logo-hornetsecurity" ? "client-card-hornetsecurity" : ""}`}
+              key={client.name}
+            >
               <div className="client-logo-frame">
                 <Image
                   className={`client-logo ${client.className}`}

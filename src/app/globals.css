@@ -639,6 +639,15 @@ svg {
   max-width: 220px;
   margin-inline: auto;
 }
+.client-logo-dqs {
+  transform: scale(2.1);
+}
+.client-logo-hornetsecurity {
+  transform: scale(1.55);
+}
+.client-card-hornetsecurity {
+  background: #091621;
+}
 .split-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
