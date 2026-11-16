@@ -28,13 +28,6 @@ const people: Array<{
     sample: false,
   },
   {
-    name: "Victoria Hartwell",
-    role: "Leadership advisory",
-    bio: "A thoughtful adviser focused on helping leaders understand their strengths, navigate change and build more effective teams.",
-    initials: "VH",
-    sample: true,
-  },
-  {
     name: "Samantha Miller",
     role: "Executive Recruitment Partner",
     bio: "Independent headhunter connecting top talent with forward-thinking companies. I specialize in identifying hard-to-find professionals and building lasting matches that drive growth and success.",
@@ -66,10 +59,6 @@ export default function People() {
         color="peach"
       />
       <section className="section container">
-        <p className="draft-note">
-          Draft team page: Victoria Hartwell is an illustrative profile for
-          review before publication.
-        </p>
         <div className="team-grid">
           {people.map((p, i) => (
             <article key={p.name} className="team-card">
