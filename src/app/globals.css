@@ -1948,6 +1948,9 @@ svg {
   display: grid;
   place-items: center;
 }
+.team-image {
+  object-fit: cover;
+}
 .team-portrait > span:not(.sample-badge) {
   font-family: Georgia, serif;
   font-style: italic;
@@ -1974,6 +1977,10 @@ svg {
 .team-card > p:not(.eyebrow) {
   font-size: 13px;
   margin-bottom: 20px;
+}
+.team-card > .team-affiliation {
+  color: var(--ink);
+  font-weight: 600;
 }
 @media (max-width: 1000px) {
   .contact-layout {

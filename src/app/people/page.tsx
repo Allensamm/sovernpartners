@@ -8,13 +8,23 @@ export const metadata = pageMetadata(
   "Meet the people and perspectives behind Sovern Partners’ approach to executive search and leadership.",
   "/people",
 );
-const people = [
+const people: Array<{
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  image?: string;
+  company?: string;
+  linkedin?: string;
+  sample: boolean;
+}> = [
   {
     name: "Venkat G",
     role: "Talent acquisition & executive search",
     bio: "A personal point of contact for conversations about talent, career ambitions and the leadership a business needs next.",
     initials: "VG",
     image: "/team/venkat.jpg",
+    linkedin: "https://www.linkedin.com/in/venkat-g-637589263/",
     sample: false,
   },
   {
@@ -25,11 +35,24 @@ const people = [
     sample: true,
   },
   {
-    name: "James Okoro",
-    role: "Search & talent research",
-    bio: "A curious researcher who connects a clear understanding of the brief with a broad, considered view of the talent landscape.",
-    initials: "JO",
-    sample: true,
+    name: "Samantha Miller",
+    role: "Executive Recruitment Partner",
+    bio: "Independent headhunter connecting top talent with forward-thinking companies. I specialize in identifying hard-to-find professionals and building lasting matches that drive growth and success.",
+    initials: "SM",
+    image: "/team/samantha-miller.png",
+    company: "Talent Bridge Int'l",
+    linkedin: "https://www.linkedin.com/in/samantha-miller-b46154147/",
+    sample: false,
+  },
+  {
+    name: "Viktoria A. Balensiefen",
+    role: "Recruitment Consultant",
+    bio: "Specialist & Leadership Recruitment · FMCG & Food · DACH Region & Scandinavia",
+    initials: "VB",
+    image: "/team/viktoria-balensiefen.png",
+    company: "ideale Personalberatung GmbH · Bonn, Germany",
+    linkedin: "https://www.linkedin.com/in/viktoriabalensiefen/",
+    sample: false,
   },
 ];
 export default function People() {
@@ -44,19 +67,20 @@ export default function People() {
       />
       <section className="section container">
         <p className="draft-note">
-          Draft team page: biographies are sample copy. Victoria Hartwell and
-          James Okoro are illustrative profiles for review before publication.
+          Draft team page: Victoria Hartwell is an illustrative profile for
+          review before publication.
         </p>
         <div className="team-grid">
           {people.map((p, i) => (
             <article key={p.name} className="team-card">
               <div
-                className={`team-portrait ${["peach", "lavender", "lime"][i]}`}
+                className={`team-portrait ${["peach", "lavender", "lime"][i % 3]}`}
               >
                 {p.image ? (
                   <Image
                     src={p.image}
                     alt={p.name}
+                    className="team-image"
                     fill
                     sizes="(max-width:760px) 90vw, 30vw"
                   />
@@ -69,6 +93,7 @@ export default function People() {
               </div>
               <p className="eyebrow">{p.role}</p>
               <h3>{p.name}</h3>
+              {p.company && <p className="team-affiliation">{p.company}</p>}
               <p>{p.bio}</p>
               <Link
                 href={`/contact?interest=${encodeURIComponent(p.role)}`}
@@ -76,6 +101,16 @@ export default function People() {
               >
                 Start a conversation <ArrowUpRight size={16} />
               </Link>
+              {p.linkedin && (
+                <a
+                  href={p.linkedin}
+                  className="text-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn profile <ArrowUpRight size={16} />
+                </a>
+              )}
             </article>
           ))}
         </div>
